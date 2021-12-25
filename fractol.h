@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractol.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kclassie <kclassie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/25 19:45:19 by kclassie          #+#    #+#             */
+/*   Updated: 2021/12/25 19:46:26 by kclassie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
@@ -6,48 +18,28 @@
 # include <math.h>
 # include <stdio.h>
 
-# define WIN_LENGTH 800
+# define WIN_HEIGHT 800
 # define WIN_WIDTH 800
-
 # define MOUSE_SCROLL_UP	4
 # define MOUSE_SCROLL_DOWN	5
 # define MOUSE_LEFT_BUTTON	1
-# define MOUSE_RIGHT_BUTTON	2
-
 # define ARROW_UP			126
 # define ARROW_DOWN			125
 # define ARROW_LEFT			123
 # define ARROW_RIGHT		124
-
-# define NUM_PAD_PLUS		69
-# define NUM_PAD_MINUS		78
-
 # define MAIN_PAD_ESC		53
-# define MAIN_PAD_SPACE		49
 # define MAIN_PAD_C			8
-# define MAIN_PAD_H			4
-# define MAIN_PAD_R			15
-# define MAIN_PAD_PLUS		24
-# define MAIN_PAD_MINUS		27
-# define MAIN_PAD_1			18
-# define MAIN_PAD_2			19
-# define MAIN_PAD_3			20
-# define MAIN_PAD_4			21
-# define MAIN_PAD_5			23
-# define MAIN_PAD_6			22
-# define MAIN_PAD_7			26
-# define MAIN_PAD_8			28
-# define MAIN_PAD_9			25
-# define ButtonPress			04
-# define ButtonPressMask		1L<<2
-# define ButtonRelease			05
-# define ButtonReleaseMask		1L<<3
-# define MotionNotify			06
-# define Button1MotionMask		1L<<8
-# define KeyPress				02
-# define KeyPressMask			1L<<0
-# define DestroyNotify			17
-# define StructureNotifyMask 	1L<<17
+# define BUTTON_PRESS			04
+# define BUTTON_PRESS_MASK		1L<<2
+# define BUTTON_RELEASE			05
+# define BUTTON_RELEASE_MASK	1L<<3
+# define MOTION_NOTIFY			06
+# define BUTTON1_MOTION_MASK	1L<<8
+# define KEY_PRESS				02
+# define KEY_PRESS_MASK			1L<<0
+# define DESTROY_NOTIFY			17
+# define STRUCTURE_NOTIFY_MASK 	1L<<17
+# define POINTER_MOTION_MASK	1L<<6
 
 typedef union u_color
 {
@@ -85,7 +77,7 @@ typedef struct s_image
 
 typedef struct s_params
 {
-	int 		argc;
+	int			argc;
 	char		**argv;
 	t_data		mlx_data;
 	t_image		image;
@@ -109,8 +101,9 @@ double	ft_double(char *nbr);
 void	output_usage(void);
 t_color	new_color(int r, int g, int b);
 t_color	fract_get_color(int iteration, t_params *params);
-int		press_mouse_button(int keycode, int x, int y, t_params *params);
+int		scroll_handler(int keycode, int x, int y, t_params *params);
 int		release_mouse_button(int keycode, int x, int y, t_params *params);
+int		pointer_handler(int x, int y, t_params *params);
 int		motion_mouse(int x, int y, t_params *params);
 void	move_screen(int x, int y, t_params *params);
 int		press_key(int keycode, t_params *params);

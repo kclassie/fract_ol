@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mouse_press_button_control.c                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kclassie <kclassie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/25 19:45:35 by kclassie          #+#    #+#             */
+/*   Updated: 2021/12/25 19:46:09 by kclassie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
 static double	interpolate(double start, double end, double interpolation)
@@ -52,28 +64,23 @@ void	move_screen(int x, int y, t_params *params)
 	y1 = y;
 }
 
-int	press_mouse_button(int keycode, int x, int y, t_params *params)
+int	scroll_handler(int keycode, int x, int y, t_params *params)
 {
 	if (x < 0 || y < 0)
 		return (0);
 	if (keycode == MOUSE_SCROLL_DOWN || keycode == MOUSE_SCROLL_UP)
 		zoom_screen(keycode, x, y, params);
-	if (keycode == MOUSE_LEFT_BUTTON)
-	{
-		params->press_mouse_button = 1;
-		move_screen(x, y, params);
-	}
 	draw_fractal(params);
 	return (0);
 }
 
-int	release_mouse_button(int keycode, int x, int y, t_params *params)
-{
-	if (keycode == MOUSE_LEFT_BUTTON)
-	{
-		params->press_mouse_button = 0;
-		move_screen(x, y, params);
-	}
-	draw_fractal(params);
-	return (0);
-}
+//int	release_mouse_button(int keycode, int x, int y, t_params *params)
+//{
+//	if (keycode == MOUSE_LEFT_BUTTON)
+//	{
+//		params->press_mouse_button = 0;
+//		move_screen(x, y, params);
+//	}
+//	draw_fractal(params);
+//	return (0);
+//}

@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   keyboard_control.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kclassie <kclassie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/25 19:45:24 by kclassie          #+#    #+#             */
+/*   Updated: 2021/12/25 19:46:21 by kclassie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
 static void	arrow_keys(int keycode, t_params *params)
 {
 	t_complex	delta;
 
-	delta = (t_complex){(params->max.re - params->min.re) / 100,
-						(params->max.im - params->min.im) / 100};
+	delta = (t_complex){(params->max.re - params->min.re) / 1000,
+						(params->max.im - params->min.im) / 1000};
 	if (keycode == ARROW_DOWN)
 	{
 		params->min.im += delta.im;
@@ -28,39 +40,15 @@ static void	arrow_keys(int keycode, t_params *params)
 	}
 }
 
-static void	change_fractal(int keycode, t_params *params)
-{
-	if (keycode == MAIN_PAD_1)
-		params->formula = &iterate_mandelbrot;
-	else if (keycode == MAIN_PAD_2)
-		params->formula = &iterate_julia;
-	else if (keycode == MAIN_PAD_4)
-		params->formula = &iterate_burning_ship;
-}
-
 int	press_key(int keycode, t_params *params)
 {
-	if (keycode == MAIN_PAD_PLUS || keycode == NUM_PAD_PLUS)
-		params->max_iteration++;
-	else if (keycode == MAIN_PAD_MINUS || keycode == NUM_PAD_MINUS)
-		params->max_iteration--;
-	else if (keycode == ARROW_DOWN || keycode == ARROW_UP
+	if (keycode == ARROW_DOWN || keycode == ARROW_UP
 		|| keycode == ARROW_RIGHT || keycode == ARROW_LEFT)
 		arrow_keys(keycode, params);
-	else if (keycode == MAIN_PAD_R)
-		reset_params(params);
 	else if (keycode == MAIN_PAD_C)
 		params->color_shift++;
-	else if (keycode == MAIN_PAD_SPACE)
-		params->change_julia_k = !params->change_julia_k;
 	else if (keycode == MAIN_PAD_ESC)
 		end_program(params);
-	else if (keycode == MAIN_PAD_1 || keycode == MAIN_PAD_2
-		|| keycode == MAIN_PAD_3 || keycode == MAIN_PAD_4
-		|| keycode == MAIN_PAD_5 || keycode == MAIN_PAD_6
-		|| keycode == MAIN_PAD_7 || keycode == MAIN_PAD_8
-		|| keycode == MAIN_PAD_9)
-		change_fractal(keycode, params);
 	draw_fractal(params);
 	return (1);
 }
