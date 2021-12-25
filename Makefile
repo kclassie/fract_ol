@@ -1,32 +1,46 @@
 NAME = fractol
+LIBFT_NAME = libft.a
+MAIN_NAME = fractol.c
+HFILENAME = fractol.h
 
-SRC = fract_ol.c
+SRC_NAME = fractol.c calculate_fractals.c color_functions.c mouse_press_button_control.c \
+	keyboard_control.c init.c utils.c draw_fractal.c mouse_motion_control.c
 
-HEADER = fract_ol.h
+CC = gcc
 
-LIB_PATH = libft/libft.a
+LIB_PATH = libft/
 
-CFLAGS = -Wall -Wextra -Werror
+MLX = -lmlx -framework OpenGL -framework Appkit
+FLAGS = -Wall -Wextra -Werror
 
-FRAMES = -framework OpenGL -framework AppKit
+OBJ_NAME = $(SRC_NAME:.c=.o)
 
-OBJ = ${SRC: %.c=%.o}$
+OBJ_BONUS_NAME = $(SRC_NAME:.c=.o)
 
-all: $(NAME)
+SRC = $(SRC_NAME)
+OBJ = $(OBJ_NAME)
+LIBFT = $(addprefix $(LIB_PATH), $(LIBFT_NAME))
 
-$(NAME): $(OBJ) $(HEADER)
-		@$(MAKE) -C ./libft
-		$(CC) $(CFLAGS) $(OBJ) -Llibft -lft -lmlx $(FRAMES) -o $(NAME)
+all:
+	@$(MAKE) -C $(LIB_PATH)
+	@$(MAKE) $(NAME)
+
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c
+	@$(CC) $(FLAGS) -Imlx -o $@ -c $<
+
+$(NAME): $(OBJ) $(HFILENAME) $(LIBFT) Makefile
+	@$(CC) $(FLAGS) $(LIBFT) $(MLX) $(OBJ) -o $(NAME)
+
+bonus: all
 
 clean:
-	rm -f *.o
-	@$(MAKE) -C ./libft clean
+	@$(MAKE) -C $(LIB_PATH) clean
+	@rm -rf $(OBJ_NAME)
+
 
 fclean: clean
-	rm -f $(NAME)
-	@$(MAKE) -C ./libft fclean
+	@rm -rf $(NAME)
 
 re: fclean all
 
-.PHONY: bonus all clean fclean re
-
+.PHONY: clean fclean re bonus run
