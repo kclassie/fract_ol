@@ -1,5 +1,12 @@
 #include "fractol.h"
 
+void	output_usage(void)
+{
+	printf("Usage: ./fractol <name> [(float)k1 (float)k2]\n");
+	printf("k1, k2 - the parameters (from -1 to 1) for Julia\n(default [-0.4, 0.6])\n\n");
+	printf("List of available fractals:\n * Mandelbrot\n * Julia\n * Burning_Ship");
+}
+
 static double	get_result_part1(char **nbr)
 {
 	double	result_part1;

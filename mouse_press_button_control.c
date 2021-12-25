@@ -10,10 +10,8 @@ static void	zoom_screen(int keycode, int x, int y, t_params *params)
 	t_complex	delta;
 	double		interpolation;
 
-	delta = (t_complex){(double)x / (params->canva.width
-									 / (params->max.re - params->min.re)) + params->min.re,
-						(double)y / (params->canva.length
-									 / (params->max.im - params->min.im)) * -1 + params->max.im};
+	delta.re = (double)x / (params->image.width / (params->max.re - params->min.re)) + params->min.re;
+	delta.im = (double)y / (params->image.length / (params->max.im - params->min.im)) * -1 + params->max.im;
 	interpolation = 1;
 	if (keycode == MOUSE_SCROLL_DOWN)
 		interpolation = 1.05;
@@ -44,8 +42,8 @@ void	move_screen(int x, int y, t_params *params)
 		first_time = 0;
 		return ;
 	}
-	delta.re = (params->max.re - params->min.re) / params->canva.width * (x1 - x);
-	delta.im = (params->max.im - params->min.im) / params->canva.length * (y - y1);
+	delta.re = (params->max.re - params->min.re) / params->image.width * (x1 - x);
+	delta.im = (params->max.im - params->min.im) / params->image.length * (y - y1);
 	params->min.im += delta.im;
 	params->max.im += delta.im;
 	params->min.re += delta.re;

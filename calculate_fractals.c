@@ -9,9 +9,9 @@ int	iterate_mandelbrot(int x, int y, t_params *params)
 
 	(void)params;
 	base_point.re = params->min.re + x * ((params->max.re - params->min.re)
-										/ (params->canva.width));
+										/ (params->image.width));
 	base_point.im = params->max.im - y * ((params->max.im - params->min.im)
-										/ (params->canva.length));
+										/ (params->image.length));
 	z = base_point;
 	i = 0;
 	while (z.re * z.re + z.im * z.im < 4 && i < params->max_iteration)
@@ -34,9 +34,9 @@ int	iterate_julia(int x, int y, t_params *params)
 	(void)params;
 	base_point = (t_complex){
 		params->min.re + x * ((params->max.re - params->min.re)
-			/ (params->canva.width)),
+			/ (params->image.width)),
 		params->max.im - y * ((params->max.im - params->min.im)
-			/ (params->canva.length))};
+			/ (params->image.length))};
 	z = base_point;
 	i = 0;
 	while (z.re * z.re + z.im * z.im <= 4 && i < params->max_iteration)
@@ -59,9 +59,9 @@ int	iterate_burning_ship(int x, int y, t_params *params)
 	(void)params;
 	base_point = (t_complex){
 			.re = params->min.re + x * ((params->max.re - params->min.re)
-									  / (params->canva.width)),
+									  / (params->image.width)),
 			.im = params->max.im - y * ((params->max.im - params->min.im)
-									  / (params->canva.length))};
+									  / (params->image.length))};
 	z = base_point;
 	i = 0;
 	while (z.re * z.re + z.im * z.im < 4 && i < params->max_iteration)

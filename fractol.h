@@ -77,18 +77,18 @@ typedef struct s_data
 	int		endian;
 }	t_data;
 
-typedef struct s_canva
+typedef struct s_image
 {
 	int		length;
 	int		width;
-}	t_canva;
+}	t_image;
 
 typedef struct s_params
 {
 	int 		argc;
 	char		**argv;
 	t_data		mlx_data;
-	t_canva		canva;
+	t_image		image;
 	int			max_iteration;
 	t_complex	min;
 	t_complex	max;
@@ -105,63 +105,21 @@ typedef struct s_formula
 	int		(*formula)(int x, int y, t_params *params);
 }	t_formula;
 
-/*
-** color_functions.c
-*/
 double	ft_double(char *nbr);
-
+void	output_usage(void);
 t_color	new_color(int r, int g, int b);
-
 t_color	fract_get_color(int iteration, t_params *params);
-
-/*
-** mouse_control.c
-*/
-
 int		press_mouse_button(int keycode, int x, int y, t_params *params);
-
 int		release_mouse_button(int keycode, int x, int y, t_params *params);
-
 int		motion_mouse(int x, int y, t_params *params);
-
 void	move_screen(int x, int y, t_params *params);
-
-/*
-** keyboard_control.c
-*/
-
 int		press_key(int keycode, t_params *params);
-
-/*
-** init.c
-*/
-
 void	reset_params(t_params *params);
-
 int		init_params(t_params *params, char **argv);
-
-/*
-** exit.c
-*/
-
 int		end_program(t_params *params);
-
-/*
-** draw_fractal.c
-*/
-
 void	draw_fractal(t_params *params);
-
-//int get_pixel_color(int x, int y, t_vars *vars);
-
-/*
-** Fractals
-*/
-
 int		iterate_mandelbrot(int x, int y, t_params *params);
-
 int		iterate_julia(int x, int y, t_params *params);
-
 int		iterate_burning_ship(int x, int y, t_params *params);
 
 #endif

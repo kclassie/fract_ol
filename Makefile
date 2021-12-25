@@ -3,8 +3,8 @@ LIBFT_NAME = libft.a
 MAIN_NAME = fractol.c
 HFILENAME = fractol.h
 
-SRC_NAME = fractol.c calculate_fractals.c color_functions.c mouse_press_button_control.c \
-	keyboard_control.c init.c utils.c draw_fractal.c mouse_motion_control.c
+SRC_NAME = fractol.c calculate_fractals.c mouse_press_button_control.c\
+	keyboard_control.c utils.c draw_fractal.c mouse_motion_control.c
 
 CC = gcc
 
