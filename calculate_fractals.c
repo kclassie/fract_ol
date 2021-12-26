@@ -12,7 +12,10 @@
 
 #include "fractol.h"
 
-int	iterate_mandelbrot(int x, int y, t_params *params)
+/*
+ * Mandelbrot fractal formula: Zn+1 = Zn2 + c, where z0 = c;
+ */
+int	do_mandelbrot(int x, int y, t_params *params)
 {
 	t_complex	base_point;
 	t_complex	z;
@@ -36,7 +39,12 @@ int	iterate_mandelbrot(int x, int y, t_params *params)
 	return (i);
 }
 
-int	iterate_julia(int x, int y, t_params *params)
+/*
+ * Julia fractal formula: Zn+1 = Zn2 + k, where z0 = k;
+ * Default values of k: k.re = -0.4, k.im = 0.6
+ */
+
+int	do_julia(int x, int y, t_params *params)
 {
 	t_complex	base_point;
 	t_complex	z;
@@ -44,11 +52,10 @@ int	iterate_julia(int x, int y, t_params *params)
 	double		tmp;
 
 	(void)params;
-	base_point = (t_complex){
-		params->min.re + x * ((params->max.re - params->min.re)
-			/ (params->image.width)),
-		params->max.im - y * ((params->max.im - params->min.im)
-			/ (params->image.length))};
+	base_point.re = params->min.re + x * ((params->max.re - params->min.re)
+			/ (params->image.width));
+	base_point.im = params->max.im - y * ((params->max.im - params->min.im)
+			/ (params->image.length));
 	z = base_point;
 	i = 0;
 	while (z.re * z.re + z.im * z.im <= 4 && i < params->max_iteration)
@@ -61,7 +68,12 @@ int	iterate_julia(int x, int y, t_params *params)
 	return (i);
 }
 
-int	iterate_burning_ship(int x, int y, t_params *params)
+/*
+ * Burning Ship (Paul Bourke) fractal formula: Zn+1 = (Z.REn + i * Z.IMn)@ +
+ * c, where Z0 = c;
+ */
+
+int	do_burning_ship(int x, int y, t_params *params)
 {
 	t_complex	base_point;
 	t_complex	z;

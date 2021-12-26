@@ -18,28 +18,20 @@
 # include <math.h>
 # include <stdio.h>
 
-# define WIN_HEIGHT 800
-# define WIN_WIDTH 800
-# define MOUSE_SCROLL_UP	4
-# define MOUSE_SCROLL_DOWN	5
-# define MOUSE_LEFT_BUTTON	1
-# define ARROW_UP			126
-# define ARROW_DOWN			125
-# define ARROW_LEFT			123
-# define ARROW_RIGHT		124
-# define MAIN_PAD_ESC		53
-# define MAIN_PAD_C			8
+# define WIN_HEIGHT				800
+# define WIN_WIDTH 				800
+# define MOUSE_SCROLL_UP		4
+# define MOUSE_SCROLL_DOWN		5
+# define ARROW_UP				126
+# define ARROW_DOWN				125
+# define ARROW_LEFT				123
+# define ARROW_RIGHT			124
+# define MAIN_PAD_ESC			53
+# define MAIN_PAD_C				8
 # define BUTTON_PRESS			04
-# define BUTTON_PRESS_MASK		1L<<2
-# define BUTTON_RELEASE			05
-# define BUTTON_RELEASE_MASK	1L<<3
 # define MOTION_NOTIFY			06
-# define BUTTON1_MOTION_MASK	1L<<8
 # define KEY_PRESS				02
-# define KEY_PRESS_MASK			1L<<0
 # define DESTROY_NOTIFY			17
-# define STRUCTURE_NOTIFY_MASK 	1L<<17
-# define POINTER_MOTION_MASK	1L<<6
 
 typedef union u_color
 {
@@ -85,8 +77,6 @@ typedef struct s_params
 	t_complex	min;
 	t_complex	max;
 	t_complex	julia_k;
-	int			change_julia_k;
-	int			press_mouse_button;
 	int			(*formula)(int x, int y, struct s_params *params);
 	int			color_shift;
 }	t_params;
@@ -98,21 +88,19 @@ typedef struct s_formula
 }	t_formula;
 
 double	ft_double(char *nbr);
+int		check_double(char *str);
 void	output_usage(void);
 t_color	new_color(int r, int g, int b);
-t_color	fract_get_color(int iteration, t_params *params);
+t_color	init_color(int iteration, t_params *params);
 int		scroll_handler(int keycode, int x, int y, t_params *params);
-int		release_mouse_button(int keycode, int x, int y, t_params *params);
 int		pointer_handler(int x, int y, t_params *params);
-int		motion_mouse(int x, int y, t_params *params);
-void	move_screen(int x, int y, t_params *params);
 int		press_key(int keycode, t_params *params);
 void	reset_params(t_params *params);
 int		init_params(t_params *params, char **argv);
 int		end_program(t_params *params);
-void	draw_fractal(t_params *params);
-int		iterate_mandelbrot(int x, int y, t_params *params);
-int		iterate_julia(int x, int y, t_params *params);
-int		iterate_burning_ship(int x, int y, t_params *params);
+int		draw_fractal(t_params *params);
+int		do_mandelbrot(int x, int y, t_params *params);
+int		do_julia(int x, int y, t_params *params);
+int		do_burning_ship(int x, int y, t_params *params);
 
 #endif

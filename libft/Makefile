@@ -1,5 +1,7 @@
 NAME = libft.a
 
+HEADER = libft.h
+
 SRC = 	ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c\
 ft_memchr.c ft_memcmp.c ft_strlen.c ft_strlcpy.c ft_strlcat.c ft_strchr.c\
 ft_strrchr.c ft_strnstr.c ft_strncmp.c ft_atoi.c ft_isalpha.c ft_isdigit.c\
@@ -19,21 +21,28 @@ OBJ = $(SRC:.c=.o)
 OBJ_B = $(BONUS:.c=.o)
 
 .c.o: $(SRC)
-	$(CC) $(CFLAGS) -c -o $@ $<
+	@$(CC) $(CFLAGS) -c -o $@ $<
 
-$(NAME): $(OBJ)
-	ar rcs $(NAME) $^
+all: $(NAME)
+
+$(NAME): $(OBJ) $(HEADER) Makefile
+	@ar rcs $(NAME) $^
+	@echo "**********************************"
+	@echo ✅ LibFt is compiled succesfully
 
 bonus: $(OBJ_B)
 	ar rcs $(NAME) $^
 
-all: $(NAME)
-
 clean:
-	rm -f $(OBJ) $(OBJ_B)
+	@rm -f $(OBJ) $(OBJ_B)
+	@echo "**********************************"
+	@echo ✅ LibFt objects are cleaned succesfully
 
-fclean: clean
-	rm -f $(NAME)
+fclean:
+	@rm -f $(OBJ) $(OBJ_B)
+	@rm -rf $(NAME)
+	@echo "**********************************"
+	@echo ✅ LibFt is deleted
 
 re: fclean all
 

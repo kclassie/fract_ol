@@ -1,45 +1,42 @@
 NAME = fractol
-LIBFT_NAME = libft.a
 MAIN_NAME = fractol.c
-HFILENAME = fractol.h
+HEADER = fractol.h
+LIBFT = libft/libft.a
+LIBFT_PATH = libft/
 
-SRC_NAME = fractol.c calculate_fractals.c mouse_press_button_control.c\
-	keyboard_control.c utils.c draw_fractal.c mouse_motion_control.c
+SRC_NAME = fractol.c calculate_fractals.c mouse_events.c\
+	key_events.c utils.c utils2.c draw_fractal.c
 
 CC = gcc
-
-LIB_PATH = libft/
-
 MLX = -lmlx -framework OpenGL -framework Appkit
 FLAGS = -Wall -Wextra -Werror
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
-
 OBJ_BONUS_NAME = $(SRC_NAME:.c=.o)
 
-SRC = $(SRC_NAME)
-OBJ = $(OBJ_NAME)
-LIBFT = $(addprefix $(LIB_PATH), $(LIBFT_NAME))
-
 all:
-	@$(MAKE) -C $(LIB_PATH)
+	@$(MAKE) -C $(LIBFT_PATH)
 	@$(MAKE) $(NAME)
 
-$(OBJ_PATH)%.o: $(SRC_PATH)%.c
-	@$(CC) $(FLAGS) -Imlx -o $@ -c $<
-
-$(NAME): $(OBJ) $(HFILENAME) $(LIBFT) Makefile
-	@$(CC) $(FLAGS) $(LIBFT) $(MLX) $(OBJ) -o $(NAME)
+$(NAME): $(OBJ_NAME) $(HEADER) $(LIBFT) Makefile
+	@$(CC) $(FLAGS) $(LIBFT) $(MLX) $(OBJ_NAME) -o $(NAME)
+	@echo "**********************************"
+	@echo ✅ Fractol is compiled succesfully
 
 bonus: all
 
 clean:
-	@$(MAKE) -C $(LIB_PATH) clean
-	@rm -rf $(OBJ_NAME)
+	@$(MAKE) -C $(LIBFT_PATH) clean
+	@rm -f $(OBJ_NAME)
+	@echo "**********************************"
+	@echo ✅ Fractol objects are cleaned succesfully
 
-
-fclean: clean
+fclean:
+	@$(MAKE) -C $(LIBFT_PATH) fclean
+	@rm -f $(OBJ_NAME)
 	@rm -rf $(NAME)
+	@echo "**********************************"
+	@echo ✅ Fractol is deleted
 
 re: fclean all
 

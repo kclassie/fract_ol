@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kclassie <kclassie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/26 13:09:00 by kclassie          #+#    #+#             */
+/*   Updated: 2021/12/26 13:09:03 by kclassie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 /*compare byte string
 The memcmp() function compares byte string s1 against byte string s2.
 Both strings are assumed to be n bytes long
