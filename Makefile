@@ -14,6 +14,9 @@ FLAGS = -Wall -Wextra -Werror
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ_BONUS_NAME = $(SRC_NAME:.c=.o)
 
+%.o: %.c
+	$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
+
 all:
 	@$(MAKE) -C $(LIBFT_PATH)
 	@$(MAKE) $(NAME)
